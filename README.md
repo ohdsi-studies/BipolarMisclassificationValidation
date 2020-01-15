@@ -1,4 +1,4 @@
-[External Validation of Model Predicting Bipolar Misdiagnosed as MDD]
+External Validation of Model Predicting Bipolar Misdiagnosed as MDD
 =============
 
 <img src="https://img.shields.io/badge/Study%20Status-Started-blue.svg" alt="Study Status: Started">
@@ -10,16 +10,16 @@
 - Study lead forums tag: **[[Jenna Reps]](https://www.ohdsi.org/who-we-are/collaborators/jenna-reps/) , [[Christophe Lambert]](https://www.ohdsi.org/who-we-are/collaborators/christophe-g-lambert/)**
 - Study start date: **Jan 1, 2020**
 - Study end date: **March 1, 2020**
-- Protocol: **[Protocol](https://github.com/ohdsi-studies/BipolarMisclassificationValidation/blob/documents/ProtocolBipolarInMDD.docx)**
+- Protocol: **[Protocol](https://github.com/ohdsi-studies/BipolarMisclassificationValidation/blob/master/documents/ProtocolBipolarInMDD.docx)**
 - Publications: **-**
 - Results explorer: **-**
 
-[Description]
+## Description
 
 This study applies and evaluates a simple score model to OMOP CDM data that predicts which newly diagnosed MDD patients will be diagnosed with bipolar within the next 3 years  
 
 
-[Code to Install]
+## Code to Install
 
 To install this package run :
 
@@ -28,7 +28,7 @@ To install this package run :
   devtools::install_github("ohdsi-studies/BipolarMisclassificationValidation")
 ```
 
-[Code to Run]
+## Code to Run
 
 Execute the study by running the code in (extras/CodeToRun.R) :
 
@@ -83,6 +83,6 @@ execute(connectionDetails = connectionDetails,
         sampleSize = NULL)
 ```
 
-[Submitting Results]
+## Submitting Results
 
 Once you have sucessfully executed the study run the execute you will find a compressed folder in the location specified by '[outputFolder]/[databaseName]' named 'resultsToShare.zip'.  The study should remove sensitive data but we encourage researchers to also check the contents of this folder (it will contain a rds file with the results which can be loaded via readRDS('[file location]').  Please send the compressed folder results to [add S3 info].
