@@ -1,0 +1,28 @@
+Package: BipolarMisclassificationValidation
+Type: Package
+Title: External Validation of Model Predicting Bipolar Misdiagnosed as MDD
+Version: 0.0.1
+Date: 2020-01-01
+Author: Jenna Reps
+Maintainer: Jenna Reps <youremail@address>
+Description: This study applies and evaluates a simple score model to OMOP CDM data that predicts which newly diagnosed MDD patients will be diagnosed with bipolar within the next 3 years 
+License: Apache License 2.0
+Depends:
+  R (>= 3.3.0), 
+  DatabaseConnector (>= 1.11.4),
+  survival
+Imports:
+  FeatureExtraction (>= 2.0.0),
+  SqlRender,
+  Cyclops (>= 1.2.2),
+  PatientLevelPrediction (>= 3.0.10),
+  ggplot2,
+  gridExtra,
+  ff,
+  ffbase (>= 0.12.1),
+  ParallelLogger,
+  OhdsiSharing
+Suggests:
+  testthat
+NeedsCompilation: no
+RoxygenNote: 6.0.1
