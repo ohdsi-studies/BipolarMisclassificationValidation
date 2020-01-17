@@ -3,6 +3,7 @@
 export(checkInstall)
 export(createCohorts)
 export(execute)
+export(getCohortCovariateData)
 export(getTable1)
 export(packageResults)
 export(transportPlpModels)

@@ -25,6 +25,10 @@ To install this package run :
 
 ```r
   # install the network package
+  # install.packages('devtools')
+  devtools::install_github("OHDSI/OhdsiSharing")
+  devtools::install_github("OHDSI/FeatureExtraction")
+  devtools::install_github("OHDSI/PatientLevelPrediction")
   devtools::install_github("ohdsi-studies/BipolarMisclassificationValidation")
 ```
 

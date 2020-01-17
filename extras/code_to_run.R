@@ -1,3 +1,10 @@
+# INSTALLING (uncomment to install)
+# install.packages('devtools')
+#devtools::install_github("OHDSI/OhdsiSharing")
+#devtools::install_github("OHDSI/FeatureExtraction")
+#devtools::install_github("OHDSI/PatientLevelPrediction")
+#devtools::install_github("ohdsi-studies/BipolarMisclassificationValidation")
+
 library(BipolarMisclassificationValidation)
 # USER INPUTS
 #=======================
@@ -41,8 +48,8 @@ BipolarMisclassificationValidation::execute(connectionDetails = connectionDetail
                                             databaseName = databaseName,
                                             oracleTempSchema = oracleTempSchema,
                                             viewModel = F,
-                                            createCohorts = F,
-                                            runValidation = F,
-                                            packageResults = F,
+                                            createCohorts = T,
+                                            runValidation = T,
+                                            packageResults = T,
                                             minCellCount = 5,
                                             sampleSize = NULL)

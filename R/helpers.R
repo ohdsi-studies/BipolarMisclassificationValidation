@@ -373,6 +373,26 @@ createCohortCovariateSettings <- function(covariateName, covariateId,
   return(covariateSettings)
 }
 
+#' Extracts covariates based on cohorts
+#'
+#' @details
+#' The user specifies a cohort and time period and then a covariate is constructed whether they are in the
+#' cohort during the time periods relative to target population cohort index
+#'
+#' @param connection  The database connection
+#' @param oracleTempSchema  The temp schema if using oracle
+#' @param cdmDatabaseSchema  The schema of the OMOP CDM data
+#' @param cdmVersion  version of the OMOP CDM data
+#' @param cohortTable  the table name that contains the target population cohort
+#' @param rowIdField  string representing the unique identifier in the target population cohort
+#' @param aggregated  whether the covariate should be aggregated
+#' @param cohortId  cohort id for the target population cohort
+#' @param covariateSettings  settings for the covariate cohorts and time periods
+#'
+#' @return
+#' The models will now be in the package
+#'
+#' @export
 getCohortCovariateData <- function(connection,
                                    oracleTempSchema = NULL,
                                    cdmDatabaseSchema,
