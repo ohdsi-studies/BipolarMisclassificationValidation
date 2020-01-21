@@ -126,13 +126,13 @@ execute <- function(connectionDetails,
     #center <- with(riskterm, y[x==0])
     center <- riskterm$y[which.min(abs(riskterm$x-0))]
     ytemp <- riskterm$y + outer(riskterm$se, c(0, -1.96, 1.96), '*')
-    sdata <- data.frame(x=riskterm$x, y= ytemp - center)
+    sdata <- data.frame(x=riskterm$x, y= exp(ytemp - center))
     splinePlot <- ggplot2::ggplot(sdata ,  ggplot2::aes(x, y.1))+
       ggplot2::geom_line(data=sdata)+
       ggplot2::geom_ribbon(data=sdata, ggplot2::aes(ymin=y.2,ymax=y.3),alpha=0.3) +
       ggplot2::xlab("Risk Score") + ggplot2::ylab("Relative outcome rate") +
-      ggplot2::scale_x_continuous(breaks = c(-1:5)*5) +
-      ggplot2::scale_y_continuous(breaks = min(floor(sdata$y.2)):max(ceiling(sdata$y.3)))
+      ggplot2::scale_x_continuous(breaks = c(-1:6)*5) +
+      ggplot2::coord_cartesian(ylim = c(0, max(ceiling(sdata$y.1))*1.2))
 
     result$spline <- list(mfit=mfit,
                           splinePlot = splinePlot)
