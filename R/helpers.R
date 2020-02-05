@@ -486,21 +486,6 @@ getSurvivalInfo <- function(plpData, prediction){
   data <- merge(population, prediction[, c('rowId','value')], by='rowId')
   data$daysToEvent[is.na(data$daysToEvent)] <- data$survivalTime[is.na(data$daysToEvent)]
 
-
-  quants <- quantile(data$value, (1:9)/10)
-  data$quantile <- 'none'
-  data$quantile[data$value >= quants[9]] <- '90%-100%'
-  data$quantile[data$value < quants[9] & data$value >= quants[8]] <- '80%-89%'
-  data$quantile[data$value < quants[8] & data$value >= quants[7]] <- '70%-79%'
-  data$quantile[data$value < quants[7] & data$value >= quants[6]] <- '60%-69%'
-  data$quantile[data$value < quants[6] & data$value >= quants[5]] <- '50%-59%'
-  data$quantile[data$value < quants[5] & data$value >= quants[4]] <- '40%-49%'
-  data$quantile[data$value < quants[4] & data$value >= quants[3]] <- '30%-39%'
-  data$quantile[data$value < quants[3] & data$value >= quants[2]] <- '20%-29%'
-  data$quantile[data$value < quants[2] & data$value >= quants[1]] <- '10%-19%'
-  data$quantile[data$value < quants[1]] <- '0%-9%'
-  data$quantile <- factor(data$quantile, levels = c('0%-9%', '10%-19%', '20%-29%', '30%-39%','40%-49%','50%-59%','60%-69%', '70%-79%', '80%-89%', '90%-100%'  ))
-
   getSurv <- function(dayL, dayU, data){
     return(c(dayL = dayL,
              dayU=dayU,
@@ -512,10 +497,10 @@ getSurvivalInfo <- function(plpData, prediction){
   #100 time points - loss to follow-up and outcome counts?
   dates <- cbind(seq(1,3650, 31), c(seq(31,3650, 31), 3650))
   allSurv <- c()
-  for(quant in unique(data$quantile)){
-    dataTemp <- data[data$quantile == quant, ]
+  for(val in unique(data$value)){
+    dataTemp <- data[data$value == val, ]
     survival <- as.data.frame(t(apply(dates,1, function(x) getSurv(x[1], x[2], dataTemp))))
-    survival$quantile = quant
+    survival$score = val
 
     allSurv <- rbind(allSurv, survival)
   }
