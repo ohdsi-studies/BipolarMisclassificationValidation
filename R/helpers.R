@@ -506,3 +506,25 @@ getSurvivalInfo <- function(plpData, prediction){
   }
   return(allSurv)
 }
+
+
+aucPerYear <- function(prediction, year){
+  temp <- prediction[prediction$year==year,]
+  auc <- PatientLevelPrediction::computeAuc(temp)
+  return(auc)
+}
+
+getAUCbyYear <- function(plpResult){
+
+  res <- plpResult
+  res$prediction$year <- format(as.Date(res$prediction$cohortStartDate, format="%Y-%m-%d"),"%Y")
+
+  aucs <- lapply(unique(res$prediction$year), function(x) aucPerYear(prediction = res$prediction, year = x ))
+  size <- lapply(unique(res$prediction$year), function(x) nrow(res$prediction[res$prediction$year== x, ]))
+
+  result <- data.frame(year= unique(res$prediction$year),
+                       auc = unlist(aucs),
+                       N= unlist(size))
+  result <- result[order(result$year),]
+  return(result)
+}

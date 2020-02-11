@@ -145,6 +145,10 @@ execute <- function(connectionDetails,
     survInfo <- getSurvivalInfo(plpData = plpData, prediction = result$prediction)
     result$survInfo <- survInfo
 
+
+    # get AUC per index year
+    result$yauc <- getAUCbyYear(result)
+
     if(!dir.exists(file.path(outputFolder,databaseName))){
       dir.create(file.path(outputFolder,databaseName))
     }
