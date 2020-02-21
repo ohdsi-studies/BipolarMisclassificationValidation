@@ -32,7 +32,7 @@ To install this package run :
 
 ## Code to Run
 
-Execute the study by running the code in (extras/CodeToRun.R) :
+Execute the study by running the code in (extras/CodeToRun.R) but update using your database configuration and settings:
 
 ```r
 library(BipolarMisclassificationValidation)
