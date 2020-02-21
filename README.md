@@ -9,7 +9,7 @@ External Validation of Model Predicting Bipolar Misdiagnosed as MDD
 - Study lead: **Jenna Reps, Christophe Lambert**
 - Study lead forums tag: **[jreps](https://forums.ohdsi.org/u/jreps) , [Christophe_Lambert](https://forums.ohdsi.org/u/Christophe_Lambert)**
 - Study start date: **Jan 1, 2020**
-- Study end date: **March 1, 2020**
+- Study end date: **April 1, 2020**
 - Protocol: **[Protocol](https://github.com/ohdsi-studies/BipolarMisclassificationValidation/blob/master/documents/ProtocolBipolarInMDD.docx)**
 - Publications: **-**
 - Results explorer: **-**
