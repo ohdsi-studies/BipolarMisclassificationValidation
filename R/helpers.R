@@ -495,7 +495,7 @@ getSurvivalInfo <- function(plpData, prediction){
   }
 
   #100 time points - loss to follow-up and outcome counts?
-  dates <- cbind(seq(1,3650, 31), c(seq(31,3650, 31), 3650))
+  dates <- cbind(seq(0,3650, 30), c(seq(30,3650, 30), 3650))
   allSurv <- c()
   for(val in unique(data$value)){
     dataTemp <- data[data$value == val, ]
