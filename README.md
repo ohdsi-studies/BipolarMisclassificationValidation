@@ -1,7 +1,7 @@
 External Validation of Model Predicting Bipolar Misdiagnosed as MDD
 =============
 
-<img src="https://img.shields.io/badge/Study%20Status-Started-blue.svg" alt="Study Status: Started">
+<img src="https://img.shields.io/badge/Study%20Status-Design%20Finalized-brightgreen.svg" alt="Study Status: Design Finalized">
 
 - Analytics use case(s): **Patient-Level Prediction**
 - Study type: **Clinical Application**
