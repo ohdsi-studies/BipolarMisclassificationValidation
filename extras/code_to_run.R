@@ -8,6 +8,12 @@
 library(BipolarMisclassificationValidation)
 # USER INPUTS
 #=======================
+# minCellCount is a number (e.g., 0, 5 or 10) - this will
+# remove any cell with a count less than minCellCount when packing the results to share
+# you will have a complete copy of the results locally, but the results ready to
+# share will have values less than minCellCount removed.
+minCellCount <- 0
+
 # The folder where the study intermediate and result files will be written:
 outputFolder <- "./bipolarValidationResults"
 
@@ -51,5 +57,5 @@ BipolarMisclassificationValidation::execute(connectionDetails = connectionDetail
                                             createCohorts = T,
                                             runValidation = T,
                                             packageResults = T,
-                                            minCellCount = 5,
+                                            minCellCount = minCellCount,
                                             sampleSize = NULL)

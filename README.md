@@ -88,3 +88,45 @@ execute(connectionDetails = connectionDetails,
 ## Submitting Results
 
 Once you have sucessfully executed the study run the execute you will find a compressed folder in the location specified by '[outputFolder]/[databaseName]' named '[databaseName].zip'.  The study should remove sensitive data but we encourage researchers to also check the contents of this folder (it will contain a rds file with the results which can be loaded via readRDS('[file location]').  Please send the compressed folder results to [add S3 info].
+
+## Result object
+After running the study you will get an rds object saved to:
+'[outputFolder]/[databaseName]/[databaseName]/validationResults.rds' you can load this object using the R function readRDS:
+```r
+result <- readRDS('[outputFolder]/[databaseName]/[databaseName]/validationResults.rds')
+```
+
+the 'result' object is a list containing the following:
+
+```{r echo=FASLE, results ='axis'}
+library(knitr)
+data<- rbind(
+c('result$inputSetting', 'The outcome and cohort ids and the databaseName', 'No'),
+c('result$executionSummary', 'Information about the R version, PatientLevelPrediction version and execution platform info', 'No'),
+c('result$model', 'Information about the model (name and type)', 'No'),
+c('result$analysisRef', 'Used to store a unique reference for the study', 'No'),
+c('result$covariateSummary', 'A dataframe with summary information about how often the covariates occured for those with and without the outcome', 'Yes'),
+c('result$spline', 'Fit and plot of cox regression for predicted risk ~ outcome over 10 years', 'Yes'),
+c('result$scoreThreshold', 'Operating characteristics per score','Yes'), 
+c('result$survInfo', 'Dataframe containing the surivial plot data per 30 day window per risk score - number surviving, number censored and number with outcome','Yes'), 
+c('result$yauc', 'The AUC when restricted the data per year of target cohort start', 'Yes'),
+c('result$performanceEvaluation$evaluationStatistics', 'Performance metrics and sizes', 'No'),
+c('result$performanceEvaluation$thresholdSummary', 'Operating characteristcs @ 100 thresholds', 'Yes'),
+c('result$performanceEvaluation$demographicSummary', 'Calibration per age group', 'Yes'),
+c('result$performanceEvaluation$calibrationSummary', 'Calibration at risk score deciles', 'Yes'),
+c('result$performanceEvaluation$predictionDistribution', 'Distribution of risk score for those with and without the outcome', 'Yes')
+)
+data <- as.data.frame(data)
+colnames(data) <- c('Object','Description','Edited by minCellCount')
+kable(data, caption ='The results R list components')
+```
+
+After running execute() with packageResults = T you will get the sharable results as:
+'[outputFolder]/[databaseName]/[databaseName].zip' and the corresponding contents are at:
+```r
+result <- readRDS('[outputFolder]/[databaseName]/[databaseName]/resultsToShare/validationResults.rds')
+```
+This will be the same obejct as before but any cell counts less than minCellCount are replaced by -1 and if you specified a minCellCount >0 then 'result$survInfo' will be removed.
+
+
+

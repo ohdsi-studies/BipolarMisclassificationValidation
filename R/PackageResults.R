@@ -54,6 +54,23 @@ packageResults <- function(outputFolder,
                                                    includeCalibrationSummary =T,
                                                    includePredictionDistribution=T,
                                                    includeCovariateSummary=T)
+
+    #==== remove low counts from extras:
+    if(!is.null(minCellCount)){
+      if(minCellCount>0){
+        result$survInfo <- NULL
+      }
+    }
+
+    # scoreThreshold
+    removeId <- result$scoreThreshold[,'N'] < minCellCount | result$scoreThreshold[,'O'] < minCellCount
+    result$scoreThreshold[removeId,c('N','O','popN','sensitivity','PPV')] <- -1
+
+    # yauc
+    removeId <- result$yauc$N < minCellCount
+    result$yauc[removeId, 'auc'] <- -1
+    result$yauc[removeId, 'N'] <- -1
+
     saveRDS(result, file.path(exportFolder, 'validationResults.rds'))
 
   }
