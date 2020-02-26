@@ -98,7 +98,7 @@ result <- readRDS('[outputFolder]/[databaseName]/[databaseName]/validationResult
 
 the 'result' object is a list containing the following:
 
-```{r echo=FASLE, results ='asis'}
+```{r echo=FALSE, results ='asis'}
 library(knitr)
 data<- rbind(
 c('result$inputSetting', 'The outcome and cohort ids and the databaseName', 'No'),
