@@ -100,7 +100,7 @@ the 'result' object is a list containing the following:
 
 ```{r table2, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "   
-| 'Object | Description | Edited by minCellCount' |
+| Object | Description | Edited by minCellCount |
 | ----------| ---------------------------------------------------| ----------------------- |
 | result$inputSetting | The outcome and cohort ids and the databaseName | No | 
 | result$executionSummary | Information about the R version, PatientLevelPrediction version and execution platform info | No | 
@@ -115,8 +115,7 @@ tabl <- "
 | result$performanceEvaluation$thresholdSummary | Operating characteristcs @ 100 thresholds | Yes | 
 | result$performanceEvaluation$demographicSummary | Calibration per age group | Yes | 
 | result$performanceEvaluation$calibrationSummary | Calibration at risk score deciles | Yes | 
-| result$performanceEvaluation$predictionDistribution | Distribution of risk score for those with and without the outcome | Yes | 
-"
+| result$performanceEvaluation$predictionDistribution | Distribution of risk score for those with and without the outcome | Yes | "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
