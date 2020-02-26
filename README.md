@@ -98,27 +98,26 @@ result <- readRDS('[outputFolder]/[databaseName]/[databaseName]/validationResult
 
 the 'result' object is a list containing the following:
 
-```{r, message = FALSE, echo=FALSE, results ='asis'}
-library(knitr)
-data<- rbind(
-c('result$inputSetting', 'The outcome and cohort ids and the databaseName', 'No'),
-c('result$executionSummary', 'Information about the R version, PatientLevelPrediction version and execution platform info', 'No'),
-c('result$model', 'Information about the model (name and type)', 'No'),
-c('result$analysisRef', 'Used to store a unique reference for the study', 'No'),
-c('result$covariateSummary', 'A dataframe with summary information about how often the covariates occured for those with and without the outcome', 'Yes'),
-c('result$spline', 'Fit and plot of cox regression for predicted risk ~ outcome over 10 years', 'Yes'),
-c('result$scoreThreshold', 'Operating characteristics per score','Yes'), 
-c('result$survInfo', 'Dataframe containing the surivial plot data per 30 day window per risk score - number surviving, number censored and number with outcome','Yes'), 
-c('result$yauc', 'The AUC when restricted the data per year of target cohort start', 'Yes'),
-c('result$performanceEvaluation$evaluationStatistics', 'Performance metrics and sizes', 'No'),
-c('result$performanceEvaluation$thresholdSummary', 'Operating characteristcs @ 100 thresholds', 'Yes'),
-c('result$performanceEvaluation$demographicSummary', 'Calibration per age group', 'Yes'),
-c('result$performanceEvaluation$calibrationSummary', 'Calibration at risk score deciles', 'Yes'),
-c('result$performanceEvaluation$predictionDistribution', 'Distribution of risk score for those with and without the outcome', 'Yes')
-)
-data <- as.data.frame(data)
-colnames(data) <- c('Object','Description','Edited by minCellCount')
-kable(data, caption ='The results R list components')
+```{r table2, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "   
+| 'Object | Description | Edited by minCellCount' |
+| ----------| ---------------------------------------------------| ----------------------- |
+| result$inputSetting | The outcome and cohort ids and the databaseName | No | 
+| result$executionSummary | Information about the R version, PatientLevelPrediction version and execution platform info | No | 
+| result$model | Information about the model (name and type) | No | 
+| result$analysisRef | Used to store a unique reference for the study | No | 
+| result$covariateSummary | A dataframe with summary information about how often the covariates occured for those with and without the outcome | Yes | 
+| result$spline | Fit and plot of cox regression for predicted risk ~ outcome over 10 years | Yes | 
+| result$scoreThreshold | Operating characteristics per score | Yes |  
+| result$survInfo | Dataframe containing the surivial plot data per 30 day window per risk score - number surviving, number censored and number with outcome | Yes | 
+| result$yauc | The AUC when restricted the data per year of target cohort start | Yes | 
+| result$performanceEvaluation$evaluationStatistics | Performance metrics and sizes | No | 
+| result$performanceEvaluation$thresholdSummary | Operating characteristcs @ 100 thresholds | Yes | 
+| result$performanceEvaluation$demographicSummary | Calibration per age group | Yes | 
+| result$performanceEvaluation$calibrationSummary | Calibration at risk score deciles | Yes | 
+| result$performanceEvaluation$predictionDistribution | Distribution of risk score for those with and without the outcome | Yes | 
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
 
 After running execute() with packageResults = T you will get the sharable results as:
