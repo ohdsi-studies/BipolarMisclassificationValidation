@@ -110,9 +110,9 @@ the 'result' object is a list containing the following:
 | result$survInfo | Dataframe containing the surivial plot data per 30 day window per risk score - number surviving, number censored and number with outcome | Yes | 
 | result$yauc | The AUC when restricted the data per year of target cohort start | Yes | 
 | result$performanceEvaluation$evaluationStatistics | Performance metrics and sizes | No | 
-| result$performanceEvaluation$thresholdSummary | Operating characteristcs @ 100 thresholds | Yes | 
+| result$performanceEvaluation$thresholdSummary | Operating characteristcs @ 100 thresholds | No | 
 | result$performanceEvaluation$demographicSummary | Calibration per age group | Yes | 
-| result$performanceEvaluation$calibrationSummary | Calibration at risk score deciles | Yes | 
+| result$performanceEvaluation$calibrationSummary | Calibration at risk score deciles | No | 
 | result$performanceEvaluation$predictionDistribution | Distribution of risk score for those with and without the outcome | Yes | 
 
 After running execute() with packageResults = T you will get the sharable results as:
