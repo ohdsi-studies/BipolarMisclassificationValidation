@@ -14,7 +14,7 @@ External Validation of Model Predicting Bipolar Misdiagnosed as MDD
 - Publications: **-**
 - Results explorer: **-**
 
-This study applies and evaluates a simple score model to OMOP CDM data that predicts which newly diagnosed MDD patients will be diagnosed with bipolar within the next 1 years  
+This study applies and evaluates a simple score model to OMOP CDM data that predicts which newly diagnosed MDD patients will be diagnosed with bipolar within the next 1 year. 
 
 
 ## Code to Install
