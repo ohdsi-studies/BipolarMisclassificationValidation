@@ -3,8 +3,4 @@
 \docType{package}
 \name{SkeletonValidationPackage}
 \alias{SkeletonValidationPackage}
-\alias{SkeletonValidationPackage-package}
 \title{SkeletonValidationPackage}
-\description{
-SkeletonValidationPackage
-}

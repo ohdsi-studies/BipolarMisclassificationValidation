@@ -4,9 +4,17 @@
 \alias{getCohortCovariateData}
 \title{Extracts covariates based on cohorts}
 \usage{
-getCohortCovariateData(connection, oracleTempSchema = NULL, cdmDatabaseSchema,
-  cdmVersion = "5", cohortTable = "#cohort_person", rowIdField = "row_id",
-  aggregated, cohortId, covariateSettings)
+getCohortCovariateData(
+  connection,
+  oracleTempSchema = NULL,
+  cdmDatabaseSchema,
+  cdmVersion = "5",
+  cohortTable = "#cohort_person",
+  rowIdField = "row_id",
+  aggregated,
+  cohortId,
+  covariateSettings
+)
 }
 \arguments{
 \item{connection}{The database connection}

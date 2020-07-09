@@ -343,10 +343,26 @@ getBipolarData <- function(connectionDetails,
 predictBipolar <- function(plpData, population){
   coefficients <- getModel()
 
+  if('covariateData'%in%names(plpData)){
+    plpData$covariateData$coefficients <- tibble::as_tibble(coefficients)
+    on.exit(plpData$covariateData$coefficients <- NULL)
+
+    prediction <- plpData$covariateData$covariates %>%
+      dplyr::inner_join(plpData$covariateData$coefficients, by = "covariateId") %>%
+      dplyr::mutate(value = covariateValue*points) %>%
+      dplyr::select(rowId, value) %>%
+      dplyr::group_by(rowId) %>%
+      dplyr::summarise(value = sum(value, na.rm = TRUE)) %>% dplyr::collect()
+
+
+  } else{
+
   prediction <- merge(plpData$covariates, ff::as.ffdf(coefficients), by = "covariateId")
   prediction$value <- prediction$covariateValue * prediction$points
   prediction <- PatientLevelPrediction:::bySumFf(prediction$value, prediction$rowId)
   colnames(prediction) <- c("rowId", "value")
+  }
+
   prediction <- merge(population, prediction, by ="rowId", all.x = TRUE)
   prediction$value[is.na(prediction$value)] <- 0
 
@@ -427,17 +443,23 @@ getCohortCovariateData <- function(connection,
                            countval = covariateSettings$count)
   sql <- SqlRender::translate(sql, targetDialect = attr(connection, "dbms"), oracleTempSchema = oracleTempSchema)
   # Retrieve the covariate:
-  covariates <- DatabaseConnector::querySql.ffdf(connection, sql)
+  covariates <- DatabaseConnector::querySql(connection, sql)
   # Convert colum names to camelCase:
   colnames(covariates) <- SqlRender::snakeCaseToCamelCase(colnames(covariates))
   # Construct covariate reference:
   sql <- "select @covariate_id as covariate_id, '@concept_set' as covariate_name,
-  12 as analysis_id, -1 as concept_id"
+  456 as analysis_id, -1 as concept_id"
   sql <- SqlRender::render(sql, covariate_id = covariateSettings$covariateId,
-                              concept_set=paste(covariateSettings$covariateName,' days before:', covariateSettings$startDay, 'days after:', covariateSettings$endDay))
-  sql <- SqlRender::translate(sql, targetDialect = attr(connection, "dbms"), oracleTempSchema = oracleTempSchema)
+                           concept_set=paste(ifelse(covariateSettings$count, 'Number of', ''),
+                                             covariateSettings$covariateName,
+                                             ifelse(covariateSettings$ageInteraction, ' X Age', ''),
+                                             ' days before:', covariateSettings$startDay, 'days after:', covariateSettings$endDay)
+
+  )
+  sql <- SqlRender::translate(sql, targetDialect = attr(connection, "dbms"),
+                              oracleTempSchema = oracleTempSchema)
   # Retrieve the covariateRef:
-  covariateRef  <- DatabaseConnector::querySql.ffdf(connection, sql)
+  covariateRef  <- DatabaseConnector::querySql(connection, sql)
   colnames(covariateRef) <- SqlRender::snakeCaseToCamelCase(colnames(covariateRef))
 
   analysisRef <- data.frame(analysisId = 4,
@@ -447,14 +469,13 @@ getCohortCovariateData <- function(connection,
                             endDay = 0,
                             isBinary = "Y",
                             missingMeansZero = "Y")
-  analysisRef <- ff::as.ffdf(analysisRef)
 
   metaData <- list(sql = sql, call = match.call())
-  result <- list(covariates = covariates,
-                 covariateRef = covariateRef,
-                 analysisRef=analysisRef,
-                 metaData = metaData)
-  class(result) <- "covariateData"
+  result <- Andromeda::andromeda(covariates = covariates,
+                                 covariateRef = covariateRef,
+                                 analysisRef = analysisRef)
+  attr(result, "metaData") <- metaData
+  class(result) <- "CovariateData"
   return(result)
 }
 
