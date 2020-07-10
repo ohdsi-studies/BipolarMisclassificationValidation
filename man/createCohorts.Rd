@@ -10,7 +10,8 @@ createCohorts(
   cohortDatabaseSchema,
   cohortTable = "cohort",
   oracleTempSchema,
-  outputFolder
+  outputFolder,
+  restrictToAdults
 )
 }
 \arguments{
@@ -35,6 +36,8 @@ priviliges for storing temporary tables.}
 
 \item{outputFolder}{Name of local folder to place results; make sure to use forward slashes
 (/)}
+
+\item{restrictToAdults}{Restrict the target cohort to patients 18 or older}
 }
 \description{
 Create the exposure and outcome cohorts

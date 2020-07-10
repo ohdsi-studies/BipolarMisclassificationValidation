@@ -26,6 +26,7 @@
 #' @param packageResults       Whether to package the results (after removing sensitive details)
 #' @param minCellCount         The min count for the result to be included in the package results
 #' @param sampleSize           Whether to sample from the target cohort - if desired add the number to sample
+#' @param restrictToAdults     Whether to restrict the validation to patients 18 or older
 #' @export
 execute <- function(connectionDetails,
                     databaseName,
@@ -39,7 +40,8 @@ execute <- function(connectionDetails,
                     runValidation = F,
                     packageResults = F,
                     minCellCount = 0,
-                    sampleSize = NULL){
+                    sampleSize = NULL,
+                    restrictToAdults = F){
 
   if (!file.exists(outputFolder))
     dir.create(outputFolder, recursive = TRUE)
@@ -57,7 +59,8 @@ execute <- function(connectionDetails,
                   cohortDatabaseSchema=cohortDatabaseSchema,
                   cohortTable=cohortTable,
                   oracleTempSchema = oracleTempSchema,
-                  outputFolder = outputFolder)
+                  outputFolder = outputFolder,
+                  restrictToAdults = restrictToAdults)
   }
 
   if(runValidation){

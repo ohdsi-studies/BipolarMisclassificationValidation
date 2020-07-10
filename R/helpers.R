@@ -36,6 +36,7 @@
 #'                             priviliges for storing temporary tables.
 #' @param outputFolder         Name of local folder to place results; make sure to use forward slashes
 #'                             (/)
+#' @param restrictToAdults     Restrict the target cohort to patients 18 or older
 #'
 #' @export
 createCohorts <- function(connectionDetails,
@@ -43,7 +44,8 @@ createCohorts <- function(connectionDetails,
                           cohortDatabaseSchema,
                           cohortTable = "cohort",
                           oracleTempSchema,
-                          outputFolder) {
+                          outputFolder,
+                          restrictToAdults) {
   if (!file.exists(outputFolder))
     dir.create(outputFolder)
 
@@ -54,7 +56,8 @@ createCohorts <- function(connectionDetails,
                  cohortDatabaseSchema = cohortDatabaseSchema,
                  cohortTable = cohortTable,
                  oracleTempSchema = oracleTempSchema,
-                 outputFolder = outputFolder)
+                 outputFolder = outputFolder,
+                 restrictToAdults = restrictToAdults)
 
   # Check number of subjects per cohort:
   ParallelLogger::logInfo("Counting cohorts")
@@ -98,7 +101,8 @@ addCohortNames <- function(data, IdColumnName = "cohortDefinitionId", nameColumn
                            cohortDatabaseSchema,
                            cohortTable,
                            oracleTempSchema,
-                           outputFolder) {
+                           outputFolder,
+                           restrictToAdults) {
 
   # Create study cohort table structure:
   sql <- SqlRender::loadRenderTranslateSql(sqlFilename = "CreateCohortTable.sql",
@@ -115,8 +119,16 @@ addCohortNames <- function(data, IdColumnName = "cohortDefinitionId", nameColumn
   pathToCsv <- system.file("settings", "CohortsToCreate.csv", package = "BipolarMisclassificationValidation")
   cohortsToCreate <- utils::read.csv(pathToCsv)
   for (i in 1:nrow(cohortsToCreate)) {
-    writeLines(paste("Creating cohort:", cohortsToCreate$name[i]))
-    sql <- SqlRender::loadRenderTranslateSql(sqlFilename = paste0(cohortsToCreate$name[i], ".sql"),
+
+    if(cohortsToCreate$name[i]=='PLP_tutorial_2018_first_MDD_aged_10_or_older' &
+       restrictToAdults){
+      sqlname <- 'PLP_tutorial_2018_first_MDD_aged_18_or_older'
+    } else{
+      sqlname <- cohortsToCreate$name[i]
+    }
+
+    writeLines(paste("Creating cohort:", sqlname))
+    sql <- SqlRender::loadRenderTranslateSql(sqlFilename = paste0(sqlname, ".sql"),
                                              packageName = "BipolarMisclassificationValidation",
                                              dbms = attr(connection, "dbms"),
                                              oracleTempSchema = oracleTempSchema,

@@ -13,6 +13,8 @@ library(BipolarMisclassificationValidation)
 # you will have a complete copy of the results locally, but the results ready to
 # share will have values less than minCellCount removed.
 minCellCount <- 0
+# the study runs n patients aged 10+ you can restrict to 18+ by setting restrictToAdults to TRUE
+restrictToAdults <- FALSE
 
 # The folder where the study intermediate and result files will be written:
 outputFolder <- "./bipolarValidationResults"
@@ -58,4 +60,5 @@ BipolarMisclassificationValidation::execute(connectionDetails = connectionDetail
                                             runValidation = T,
                                             packageResults = T,
                                             minCellCount = minCellCount,
-                                            sampleSize = NULL)
+                                            sampleSize = NULL,
+                                            restrictToAdults = restrictToAdults)

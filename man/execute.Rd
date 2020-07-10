@@ -17,7 +17,8 @@ execute(
   runValidation = F,
   packageResults = F,
   minCellCount = 0,
-  sampleSize = NULL
+  sampleSize = NULL,
+  restrictToAdults = F
 )
 }
 \arguments{
@@ -54,6 +55,8 @@ study.}
 \item{minCellCount}{The min count for the result to be included in the package results}
 
 \item{sampleSize}{Whether to sample from the target cohort - if desired add the number to sample}
+
+\item{restrictToAdults}{Whether to restrict the validation to patients 18 or older}
 }
 \description{
 Execute the validation study

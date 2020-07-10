@@ -78,6 +78,9 @@ oracleTempSchema <- NULL
 
 # table name where the cohorts will be generated
 cohortTable <- 'bipolarValidationCohort'
+
+# the study runs n patients aged 10+ you can restrict to 18+ by setting restrictToAdults to TRUE
+restrictToAdults <- FALSE
 #=======================
 
 execute(connectionDetails = connectionDetails,
@@ -92,7 +95,8 @@ execute(connectionDetails = connectionDetails,
         runValidation = T,
         packageResults = T,
         minCellCount = 5,
-        sampleSize = NULL)
+        sampleSize = NULL,
+        restrictToAdults = restrictToAdults)
 ```
 
 ## Submitting Results
